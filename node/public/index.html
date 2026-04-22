@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FreshMart | Docker Grocery Store</title>
+    <style>
+        :root { --primary: #27ae60; --dark: #2c3e50; --light: #ecf0f1; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); }
+        header { background: var(--primary); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .container { display: grid; grid-template-columns: 3fr 1fr; gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card span { font-size: 3rem; display: block; margin-bottom: 10px; }
+        .btn { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; width: 100%; }
+        .cart-panel { background: white; padding: 20px; border-radius: 8px; height: fit-content; position: sticky; top: 100px; }
+        .cart-item { display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; padding: 10px 0; }
+        /* Add more CSS here to reach 100+ lines of styling */
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🥦 FreshMart</h1>
+    <div id="cart-count">Cart: 0 items</div>
+</header>
+
+<div class="container">
+    <section>
+        <h2>Our Products</h2>
+        <div class="product-grid" id="product-display">
+            </div>
+    </section>
+
+    <aside class="cart-panel">
+        <h3>Your Basket</h3>
+        <div id="cart-items"></div>
+        <hr>
+        <div id="cart-total">Total: $0.00</div>
+        <button class="btn" onclick="checkout()" style="margin-top:20px; background:var(--dark)">Place Order</button>
+    </aside>
+</div>
+
+<script>
+    let currentCart = [];
+
+    // Fetch products from our Node.js API
+    async function loadProducts() {
+        const res = await fetch('/api/products');
+        const products = await res.json();
+        const display = document.getElementById('product-display');
+        
+        display.innerHTML = products.map(p => `
+            <div class="card">
+                <span>${p.img}</span>
+                <h3>${p.name}</h3>
+                <p>$${p.price.toFixed(2)}</p>
+                <button class="btn" onclick="addToCart(${p.id})">Add to Cart</button>
+            </div>
+        `).join('');
+    }
+
+    async function addToCart(productId) {
+        const res = await fetch('/api/cart', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ productId })
+        });
+        const data = await res.json();
+        currentCart = data.cart;
+        renderCart();
+    }
+
+    function renderCart() {
+        const cartDiv = document.getElementById('cart-items');
+        const totalDiv = document.getElementById('cart-total');
+        const countDiv = document.getElementById('cart-count');
+        
+        let total = 0;
+        cartDiv.innerHTML = currentCart.map(item => {
+            total += item.price;
+            return `<div class="cart-item"><span>${item.name}</span> <b>$${item.price}</b></div>`;
+        }).join('');
+        
+        totalDiv.innerHTML = `Total: $${total.toFixed(2)}`;
+        countDiv.innerHTML = `Cart: ${currentCart.length} items`;
+    }
+
+    async function checkout() {
+        if(currentCart.length === 0) return alert("Cart is empty!");
+        const res = await fetch('/api/checkout', { method: 'POST' });
+        const data = await res.json();
+        alert(`Success! ${data.message} Total paid: $${data.total}`);
+        currentCart = [];
+        renderCart();
+    }
+
+    loadProducts();
+</script>
+</body>
+</html>

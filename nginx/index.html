@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rolls-Royce Motor Cars</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Georgia", serif;
+    }
+
+    body {
+      background-color: #0b0b0b;
+      color: #f5f5f5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background-color: rgba(0,0,0,0.85);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      letter-spacing: 3px;
+      font-size: 20px;
+    }
+
+    nav a {
+      color: #f5f5f5;
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      height: 100vh;
+      background: url('https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 60px;
+      letter-spacing: 4px;
+    }
+
+    .hero p {
+      margin-top: 15px;
+      font-size: 18px;
+      opacity: 0.85;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 12px 25px;
+      border: 1px solid white;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+
+    .section {
+      padding: 80px 60px;
+      text-align: center;
+    }
+
+    .section h3 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+
+    .cars {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #111;
+      width: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card h4 {
+      margin: 15px 0 10px;
+    }
+
+    .card p {
+      font-size: 13px;
+      opacity: 0.75;
+      padding: 0 15px 20px;
+    }
+
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ROLLS-ROYCE</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#models">Models</a>
+    <a href="#craft">Craftsmanship</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h2>PHANTOM</h2>
+  <p>Luxury beyond imagination</p>
+  <button class="btn">Explore Collection</button>
+</div>
+
+<div id="models" class="section">
+  <h3>Our Models</h3>
+  <div class="cars">
+
+    <div class="card">
+      <img src="https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg" alt="Phantom">
+      <h4>Phantom</h4>
+      <p>The ultimate expression of luxury and presence.</p>
+    </div>
+
+    <div class="card">
+      <img src="https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg" alt="Luxury Car">
+      <h4>Ghost</h4>
+      <p>Effortless performance with timeless elegance.</p>
+    </div>
+
+    <div class="card">
+      <img src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg" alt="Car">
+      <h4>Cullinan</h4>
+      <p>The most luxurious SUV experience ever built.</p>
+    </div>
+
+  </div>
+</div>
+
+<div id="craft" class="section">
+  <h3>Craftsmanship</h3>
+  <p>
+    Every :contentReference[oaicite:0]{index=0} is hand-built with precision, blending traditional craftsmanship with modern engineering.
+    Each car is a masterpiece of luxury and performance.
+  </p>
+</div>
+
+<div id="contact" class="section">
+  <h3>Contact</h3>
+  <p>Email: luxury@rolls-royce.com</p>
+  <p>Phone: +44 20 7925 8000</p>
+</div>
+
+<footer>
+  © 2026 Rolls-Royce Motor Cars. All Rights Reserved.
+</footer>
+
+</body>
+</html>

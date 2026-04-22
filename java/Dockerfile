@@ -1,3 +1,3 @@
-FROM tomcat:10.1-jdk17
-RUN rm -rf /usr/local/tomcat/webapps/*
-COPY target/my-java-webapp.war /usr/local/tomcat/webapps/ROOT.war
+FROM tomcat:8.0.20-jre8
+COPY target/*.war /usr/local/tomcat/webapps/
+COPY tomcat-users.xml /usr/local/tomcat/conf/
